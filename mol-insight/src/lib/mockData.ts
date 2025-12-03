@@ -1,4 +1,6 @@
 import type { GeneData } from "@/components/GeneTable";
+import mockPredictions from "@/lib/precomputed_predictions_050.json";
+
 
 const geneSymbols = [
   "TP53", "BRCA1", "EGFR", "KRAS", "MYC", "PTEN", "AKT1", "PIK3CA", "BRAF", "NRAS",
@@ -18,40 +20,42 @@ const categories = [
   "Signal Transduction", "Transcription Factor", "Cytokine", "Drug Target", "Housekeeping"
 ];
 
-export const generateMockPrediction = (input: string): GeneData[] => {
-  // Use input to seed some variation
-  const seed = input.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  
+export const convertMockJsonToGeneData = (
+  compound: string
+): GeneData[] => {
+  const results = mockPredictions[compound];
+  if (!results) {
+    throw new Error(`No mock prediction found for compound: ${compound}`);
+  }
+
   return geneSymbols.map((symbol, index) => {
-    // Create pseudo-random but deterministic values based on input
-    const pseudoRandom = Math.sin(seed + index * 0.1) * 10000;
-    const normalizedRandom = (pseudoRandom - Math.floor(pseudoRandom));
-    
-    // Generate score between -2 and 2
-    const score = (normalizedRandom - 0.5) * 4;
-    
-    // Determine direction
-    let direction: "up" | "down" | "neutral";
-    if (score > 0.3) direction = "up";
-    else if (score < -0.3) direction = "down";
-    else direction = "neutral";
-    
-    // Generate p-value (smaller for larger absolute scores)
-    const pValue = Math.pow(10, -Math.abs(score) * 3 - normalizedRandom * 2);
-    
+    const rawScore = results[index] ?? 0;
+
+    // direction:
+    let direction: "up" | "down" | "neutral" = "neutral";
+    if (rawScore > 0.3) direction = "up";
+    else if (rawScore < -0.3) direction = "down";
+
+    // p-value — mock logic, adjust if needed
+    const pValue = Math.max(
+      Math.pow(10, -Math.abs(rawScore) * 3),
+      1e-15
+    );
+
     return {
       id: `ENSG${String(10000 + index).padStart(11, "0")}`,
       symbol,
-      score: Number(score.toFixed(4)),
+      score: Number(rawScore.toFixed(4)),
       direction,
-      pValue: Math.max(pValue, 1e-15),
-      category: categories[index % categories.length],
+      pValue,
+      category: categories[index % categories.length]
     };
   });
 };
 
-// Simulate API delay
-export const simulatePrediction = async (input: string): Promise<GeneData[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 2000 + Math.random() * 1000));
-  return generateMockPrediction(input);
+export const simulatePrediction = async (compound: string): Promise<GeneData[]> => {
+  await new Promise((r) => setTimeout(r, 1500));
+  return convertMockJsonToGeneData(compound);
 };
+
+
