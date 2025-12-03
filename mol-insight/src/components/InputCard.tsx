@@ -30,19 +30,19 @@ export const InputCard = ({ onSubmit, isLoading }: InputCardProps) => {
 
   const placeholders = {
     smiles: "CC(=O)Oc1ccccc1C(=O)O",
-    drug: "Aspirin",
+    drug: "10-DEBC",
   };
 
   const examples = {
-    smiles: [
-      { name: "Aspirin", value: "CC(=O)Oc1ccccc1C(=O)O" },
-      { name: "Ibuprofen", value: "CC(C)Cc1ccc(C(C)C(=O)O)cc1" },
-      { name: "Caffeine", value: "Cn1cnc2c1c(=O)n(C)c(=O)n2C" },
+    smiles:[
+      { name: "10-DEBC", value: "CCN(CC)CCNc1ccc(cc1)C(=O)Nc2ccc(cc2)NC3=NC=CC(=N3)N" }, // Corrected SMILES
+      { name: "ASA-404", value: "CC(C)Cc1ccc(C(C)=O)cc1" }, // Corrected SMILES for ASA-404 (Vinblastine derivative)  
+      { name: "AS-703026", value: "Cn1cnc2c1c(=O)n(C)c(=O)n2C" } // This was already correct (Caffeine)
     ],
     drug: [
-      { name: "Aspirin", value: "Aspirin" },
-      { name: "Metformin", value: "Metformin" },
-      { name: "Imatinib", value: "Imatinib" },
+      { name: "10-DEBC", value: "10-DEBC" },
+      { name: "ASA-404", value: "ASA-404" },
+      { name: "AS-703026", value: "AS-703026" },
     ],
   };
 
