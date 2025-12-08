@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, FileText, Image, Info, Table2, BarChart3, Grid3X3, TrendingUp } from "lucide-react";
+import { Download, FileText, Image, Info, Table2, BarChart3, Grid3X3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GeneTable, type GeneData } from "./GeneTable";
 import { ExpressionBarChart } from "./ExpressionBarChart";
 import { HeatmapView } from "./HeatmapView";
-import { VolcanoPlot } from "./VolcanoPlot";
 import { cn } from "@/lib/utils";
 
 interface ResultsSectionProps {
@@ -13,7 +12,7 @@ interface ResultsSectionProps {
   moleculeName: string;
 }
 
-type ViewMode = "table" | "bar" | "heatmap" | "volcano";
+type ViewMode = "table" | "bar" | "heatmap";
 
 export const ResultsSection = ({ data, moleculeName }: ResultsSectionProps) => {
   const [viewMode, setViewMode] = useState<ViewMode>("table");
@@ -47,7 +46,6 @@ export const ResultsSection = ({ data, moleculeName }: ResultsSectionProps) => {
     { id: "table", label: "Table", icon: <Table2 className="w-4 h-4" /> },
     { id: "bar", label: "Bar Chart", icon: <BarChart3 className="w-4 h-4" /> },
     { id: "heatmap", label: "Heatmap", icon: <Grid3X3 className="w-4 h-4" /> },
-    { id: "volcano", label: "Volcano", icon: <TrendingUp className="w-4 h-4" /> },
   ];
 
   return (
@@ -194,18 +192,6 @@ export const ResultsSection = ({ data, moleculeName }: ResultsSectionProps) => {
               transition={{ duration: 0.2 }}
             >
               <HeatmapView data={data} />
-            </motion.div>
-          )}
-          
-          {viewMode === "volcano" && (
-            <motion.div
-              key="volcano"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <VolcanoPlot data={data} />
             </motion.div>
           )}
         </AnimatePresence>

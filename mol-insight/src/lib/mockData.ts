@@ -1,4 +1,13 @@
 import type { GeneData } from "@/components/GeneTable";
+import mockPredictions from "@/lib/precomputed_predictions_050.json";
+import { getGeneAnnotation } from "@/lib/geneAnnotations";
+
+// Mapping from SMILES strings to drug names
+const SMILES_TO_DRUG_NAME: Record<string, string> = {
+  "CCN(CC)CCNc1ccc(cc1)C(=O)Nc2ccc(cc2)NC3=NC=CC(=N3)N": "10-DEBC",
+  "CC(C)Cc1ccc(C(C)=O)cc1": "ASA-404",
+  "Cn1cnc2c1c(=O)n(C)c(=O)n2C": "AS-703026",
+};
 
 const geneSymbols = [
   "TP53", "BRCA1", "EGFR", "KRAS", "MYC", "PTEN", "AKT1", "PIK3CA", "BRAF", "NRAS",
@@ -13,45 +22,49 @@ const geneSymbols = [
   "GAPDH", "ACTB", "TUBB", "TUBA1A", "GFAP", "VIM", "CDH1", "CDH2", "SNAI1", "ZEB1"
 ];
 
-const categories = [
-  "Tumor Suppressor", "Oncogene", "Cell Cycle", "Apoptosis", "Metabolism",
-  "Signal Transduction", "Transcription Factor", "Cytokine", "Drug Target", "Housekeeping"
-];
+export const convertMockJsonToGeneData = (
+  compound: string
+): GeneData[] => {
+  // Convert SMILES to drug name if it's in our mapping
+  const drugName = SMILES_TO_DRUG_NAME[compound] || compound;
 
-export const generateMockPrediction = (input: string): GeneData[] => {
-  // Use input to seed some variation
-  const seed = input.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  
+  const results = mockPredictions[drugName];
+  if (!results) {
+    throw new Error(`No mock prediction found for compound: ${drugName}`);
+  }
+
   return geneSymbols.map((symbol, index) => {
-    // Create pseudo-random but deterministic values based on input
-    const pseudoRandom = Math.sin(seed + index * 0.1) * 10000;
-    const normalizedRandom = (pseudoRandom - Math.floor(pseudoRandom));
-    
-    // Generate score between -2 and 2
-    const score = (normalizedRandom - 0.5) * 4;
-    
-    // Determine direction
-    let direction: "up" | "down" | "neutral";
-    if (score > 0.3) direction = "up";
-    else if (score < -0.3) direction = "down";
-    else direction = "neutral";
-    
-    // Generate p-value (smaller for larger absolute scores)
-    const pValue = Math.pow(10, -Math.abs(score) * 3 - normalizedRandom * 2);
-    
+    const rawScore = results[index] ?? 0;
+
+    // direction:
+    let direction: "up" | "down" | "neutral" = "neutral";
+    if (rawScore > 0.3) direction = "up";
+    else if (rawScore < -0.3) direction = "down";
+
+    // p-value — mock logic, adjust if needed
+    const pValue = Math.max(
+      Math.pow(10, -Math.abs(rawScore) * 3),
+      1e-15
+    );
+
+    // Get real biological annotation for this gene
+    const annotation = getGeneAnnotation(symbol);
+    const category = annotation?.category || "Unknown";
+
     return {
       id: `ENSG${String(10000 + index).padStart(11, "0")}`,
       symbol,
-      score: Number(score.toFixed(4)),
+      score: Number(rawScore.toFixed(4)),
       direction,
-      pValue: Math.max(pValue, 1e-15),
-      category: categories[index % categories.length],
+      pValue,
+      category
     };
   });
 };
 
-// Simulate API delay
-export const simulatePrediction = async (input: string): Promise<GeneData[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 2000 + Math.random() * 1000));
-  return generateMockPrediction(input);
+export const simulatePrediction = async (compound: string): Promise<GeneData[]> => {
+  await new Promise((r) => setTimeout(r, 1500));
+  return convertMockJsonToGeneData(compound);
 };
+
+
