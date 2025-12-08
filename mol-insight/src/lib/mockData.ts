@@ -1,5 +1,6 @@
 import type { GeneData } from "@/components/GeneTable";
 import mockPredictions from "@/lib/precomputed_predictions_050.json";
+import { getGeneAnnotation } from "@/lib/geneAnnotations";
 
 // Mapping from SMILES strings to drug names
 const SMILES_TO_DRUG_NAME: Record<string, string> = {
@@ -19,11 +20,6 @@ const geneSymbols = [
   "SREBP1", "PPARγ", "LXRα", "AMPK", "SIRT1", "PGC1α", "NRF2", "KEAP1", "HO1", "NQO1",
   "CYP1A1", "CYP3A4", "UGT1A1", "GSTP1", "ABCB1", "ABCG2", "SLC22A1", "SLC2A1", "SLCO1B1", "SLCO1B3",
   "GAPDH", "ACTB", "TUBB", "TUBA1A", "GFAP", "VIM", "CDH1", "CDH2", "SNAI1", "ZEB1"
-];
-
-const categories = [
-  "Tumor Suppressor", "Oncogene", "Cell Cycle", "Apoptosis", "Metabolism",
-  "Signal Transduction", "Transcription Factor", "Cytokine", "Drug Target", "Housekeeping"
 ];
 
 export const convertMockJsonToGeneData = (
@@ -51,13 +47,17 @@ export const convertMockJsonToGeneData = (
       1e-15
     );
 
+    // Get real biological annotation for this gene
+    const annotation = getGeneAnnotation(symbol);
+    const category = annotation?.category || "Unknown";
+
     return {
       id: `ENSG${String(10000 + index).padStart(11, "0")}`,
       symbol,
       score: Number(rawScore.toFixed(4)),
       direction,
       pValue,
-      category: categories[index % categories.length]
+      category
     };
   });
 };
