@@ -25,7 +25,7 @@ interface GeneTableProps {
   data: GeneData[];
 }
 
-type SortKey = "symbol" | "score" | "pValue";
+type SortKey = "symbol" | "score";
 type SortDirection = "asc" | "desc";
 
 export const GeneTable = ({ data }: GeneTableProps) => {
@@ -71,9 +71,6 @@ export const GeneTable = ({ data }: GeneTableProps) => {
           break;
         case "score":
           comparison = Math.abs(a.score) - Math.abs(b.score);
-          break;
-        case "pValue":
-          comparison = a.pValue - b.pValue;
           break;
       }
       return sortDirection === "asc" ? comparison : -comparison;
@@ -179,15 +176,6 @@ export const GeneTable = ({ data }: GeneTableProps) => {
                   <SortIcon column="score" />
                 </div>
               </TableHead>
-              <TableHead
-                className="cursor-pointer select-none"
-                onClick={() => handleSort("pValue")}
-              >
-                <div className="flex items-center gap-2">
-                  P-Value
-                  <SortIcon column="pValue" />
-                </div>
-              </TableHead>
               <TableHead>Category</TableHead>
             </TableRow>
           </TableHeader>
@@ -208,9 +196,6 @@ export const GeneTable = ({ data }: GeneTableProps) => {
                 </TableCell>
                 <TableCell>
                   <DirectionBadge direction={gene.direction} score={gene.score} />
-                </TableCell>
-                <TableCell className="font-mono text-xs text-muted-foreground">
-                  {gene.pValue.toExponential(2)}
                 </TableCell>
                 <TableCell>
                   <span className="px-2 py-0.5 text-xs bg-muted rounded-full">

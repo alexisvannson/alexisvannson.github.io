@@ -1,6 +1,12 @@
 import type { GeneData } from "@/components/GeneTable";
 import mockPredictions from "@/lib/precomputed_predictions_050.json";
 
+// Mapping from SMILES strings to drug names
+const SMILES_TO_DRUG_NAME: Record<string, string> = {
+  "CCN(CC)CCNc1ccc(cc1)C(=O)Nc2ccc(cc2)NC3=NC=CC(=N3)N": "10-DEBC",
+  "CC(C)Cc1ccc(C(C)=O)cc1": "ASA-404",
+  "Cn1cnc2c1c(=O)n(C)c(=O)n2C": "AS-703026",
+};
 
 const geneSymbols = [
   "TP53", "BRCA1", "EGFR", "KRAS", "MYC", "PTEN", "AKT1", "PIK3CA", "BRAF", "NRAS",
@@ -23,9 +29,12 @@ const categories = [
 export const convertMockJsonToGeneData = (
   compound: string
 ): GeneData[] => {
-  const results = mockPredictions[compound];
+  // Convert SMILES to drug name if it's in our mapping
+  const drugName = SMILES_TO_DRUG_NAME[compound] || compound;
+
+  const results = mockPredictions[drugName];
   if (!results) {
-    throw new Error(`No mock prediction found for compound: ${compound}`);
+    throw new Error(`No mock prediction found for compound: ${drugName}`);
   }
 
   return geneSymbols.map((symbol, index) => {
