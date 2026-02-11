@@ -12,7 +12,7 @@ const Footer = () => (
             {personalInfo.firstName} {personalInfo.lastName}
           </p>
           <p className="text-sm text-muted-foreground mt-1">
-            AI/ML &amp; Biomedical Engineering
+            AI/ML &amp; Biomedicine
           </p>
         </div>
 

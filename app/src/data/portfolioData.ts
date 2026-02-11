@@ -1,8 +1,6 @@
 import {
   Brain,
-  HeartPulse,
   Code2,
-  Globe,
   Wrench,
 } from "lucide-react";
 
@@ -10,8 +8,9 @@ export const personalInfo = {
   firstName: "Alexis",
   lastName: "Vannson",
   tagline:
-    "AI/ML engineer with a biomedical focus — building intelligent systems that bridge machine learning and life sciences.",
-  email: "alexis.vannson@example.com",
+    "AI student working on machine learning applications in biomedicine",
+  nationality: "French & Austrian",
+  email: "vannson.alexis@gmail.com",
   resumeUrl: "/resume.pdf",
   socials: {
     github: "https://github.com/alexisvannson",
@@ -20,12 +19,25 @@ export const personalInfo = {
 };
 
 export const aboutData = {
-  bio: "I'm a graduate student in AI & Machine Learning with a specialization in biomedical engineering. My research sits at the intersection of deep learning and drug discovery, where I develop models that predict how small molecules affect gene expression. I'm passionate about leveraging computational tools to accelerate scientific discovery and improve human health.",
-  education: "MSc Artificial Intelligence — Biomedical Engineering focus",
-  researchInterests:
-    "Gene-expression prediction, molecular embeddings, computational drug discovery",
-  currentFocus:
-    "Developing embedding-based models for predicting transcriptomic signatures from chemical structure",
+  bio: "I study AI, Data and Management Sciences at CentraleSupélec and Essec Business School — a dual engineering and business program in Paris. I've interned as a software engineer building LLM-powered products, as a data scientist working on large-scale prediction models, and as a research assistant benchmarking deep learning architectures for computer vision. Outside of work, I build projects in medical imaging, graph neural networks, and computational drug discovery.",
+  highlights: [
+    {
+      label: "Education",
+      value: "BSc in AI, Data & Management Sciences — CentraleSupélec x Essec (2023–2027)",
+    },
+    {
+      label: "Nationality",
+      value: "French & Austrian",
+    },
+    {
+      label: "Languages",
+      value: "French, German (Native) · English (Fluent) · Spanish, Dutch (Basic)",
+    },
+    {
+      label: "Interests",
+      value: "Computer Vision · Medical Imaging · LLM Applications · Drug Discovery",
+    },
+  ],
 };
 
 export interface Experience {
@@ -40,30 +52,39 @@ export interface Experience {
 export const experiences: Experience[] = [
   {
     id: "exp-1",
-    role: "ML Research Intern",
-    organization: "Biotech Research Lab",
-    period: "Jun 2025 — Present",
+    role: "Software Engineering Intern",
+    organization: "Polyfact",
+    period: "May 2025 — Aug 2025",
     description:
-      "Developing deep-learning models to predict gene-expression signatures from molecular embeddings. Built data pipelines processing LINCS L1000 datasets and trained multi-output regression models achieving state-of-the-art performance.",
-    tech: ["PyTorch", "Transformers", "scikit-learn", "Pandas", "AWS"],
+      "Built and shipped LLM-powered features with TypeScript, LangGraph, and OpenAI APIs, increasing the profile base by 40% and enabling real-time search over a Supabase/PostgreSQL backend. Engineered automated web scraping pipelines across 10+ French government ministries using Puppeteer, and reverse-engineered government APIs to integrate real-time political data into existing infrastructure.",
+    tech: ["TypeScript", "LangGraph", "OpenAI API", "Supabase", "PostgreSQL", "Puppeteer"],
   },
   {
     id: "exp-2",
-    role: "Data Science Teaching Assistant",
-    organization: "University AI Department",
-    period: "Sep 2024 — May 2025",
+    role: "Research Intern",
+    organization: "CentraleSupélec",
+    period: "Mar 2024 — Jun 2024",
     description:
-      "Assisted 120+ students in machine learning and data science courses. Created supplementary Jupyter notebooks covering neural networks, dimensionality reduction, and model evaluation.",
-    tech: ["Python", "Jupyter", "NumPy", "Matplotlib", "LaTeX"],
+      "Conducted comparative performance analysis of 4+ ML architectures (MLPs, CNNs, U-Nets, GNNs) for computer vision tasks. Optimized graph-based data preprocessing using KNN clustering to connect superpixels, achieving a 35% reduction in processing time and boosting model accuracy by up to 7%. Trained and evaluated models on multiple datasets (10,000+ samples).",
+    tech: ["PyTorch", "Scikit-learn", "NumPy", "Pandas", "OpenCV"],
   },
   {
     id: "exp-3",
-    role: "Software Engineering Intern",
-    organization: "HealthTech Startup",
-    period: "Jun 2024 — Aug 2024",
+    role: "Data Science Intern",
+    organization: "Emeria Technologies",
+    period: "Apr 2024",
     description:
-      "Built full-stack features for a clinical data platform. Implemented REST APIs for patient data ingestion and developed interactive dashboards for healthcare analytics.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker"],
+      "Performed feature engineering to isolate high-confidence data subsets from 2 million unprocessed invoices per year. Developed a Random Forest model using Scikit-learn, analyzing 138,000+ records to identify key features, boosting contract number prediction accuracy to 85% and reducing misclassification by 4%.",
+    tech: ["Python", "Scikit-learn", "Pandas", "Random Forest"],
+  },
+  {
+    id: "exp-4",
+    role: "AI Practitioner",
+    organization: "Automatants",
+    period: "Sep 2023 — Jun 2024",
+    description:
+      "Explored and implemented various AI models including CNNs, ResNets, and Autoencoders through hands-on lab sessions and hackathons. Worked on pneumonia detection, deepfake identification, image denoising, and audio classification using PyTorch.",
+    tech: ["PyTorch", "CNNs", "ResNets", "Autoencoders"],
   },
 ];
 
@@ -83,40 +104,53 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: "mol-insight",
-    title: "Molecular Impact Explorer",
+    title: "Mol-Insight",
     description:
-      "AI-powered tool that predicts gene-expression signatures from chemical structure using embedding-based models and machine learning.",
+      "A data pipeline to predict cellular responses using a machine learning approach. Predicts gene-expression signatures from chemical structure using embedding-based models.",
     longDescription:
-      "Molecular Impact Explorer is a web application that predicts how small-molecule drugs influence gene expression. Users enter a SMILES string or drug name and receive predicted transcriptomic signatures. The tool is built on embedding-based molecular representations combined with multi-output regression models trained on LINCS L1000 data.",
-    tech: ["React", "TypeScript", "Python", "PyTorch", "LINCS L1000", "Tailwind CSS"],
+      "Mol-Insight is a machine learning pipeline that predicts how small-molecule drugs influence gene expression at the cellular level. It combines molecular embeddings with multi-output regression models trained on LINCS L1000 data to predict transcriptomic signatures from chemical structures.",
+    tech: ["Python", "PyTorch", "Jupyter Notebook", "Scikit-learn", "Pandas"],
     status: "live",
     featured: true,
     liveUrl: "/projects/mol-insight",
     githubUrl: "https://github.com/alexisvannson/mol-insight",
   },
   {
-    slug: "bio-embeddings",
-    title: "Bio-Embeddings Toolkit",
+    slug: "graphnet-classifier",
+    title: "GraphNet Classifier",
     description:
-      "Python library for generating and analyzing molecular embeddings for drug discovery applications.",
+      "Research project exploring how representing images as graphs improves the spatial understanding of deep learning models for image classification.",
     longDescription:
-      "A modular Python library that provides unified APIs for generating molecular embeddings from SMILES strings using multiple pre-trained models. Includes utilities for similarity search, clustering, and visualization of chemical space.",
-    tech: ["Python", "RDKit", "scikit-learn", "UMAP", "Streamlit"],
-    status: "in-progress",
-    featured: false,
-    githubUrl: "https://github.com/alexisvannson/bio-embeddings",
-  },
-  {
-    slug: "clinical-nlp",
-    title: "Clinical Notes NLP",
-    description:
-      "NLP pipeline for extracting structured medical information from unstructured clinical notes.",
-    longDescription:
-      "An end-to-end NLP pipeline that processes clinical notes to extract entities such as diagnoses, medications, and procedures. Uses fine-tuned BioBERT models with a custom annotation scheme tailored for French-language clinical documents.",
-    tech: ["Python", "Hugging Face", "spaCy", "FastAPI", "Docker"],
+      "A research project investigating Graph Neural Networks for image classification. By representing images as graphs, the model captures spatial relationships between regions more effectively than traditional grid-based approaches. Includes a companion blog post detailing the methodology and results.",
+    tech: ["Python", "PyTorch", "GNN", "Computer Vision", "Deep Learning"],
     status: "completed",
     featured: false,
-    githubUrl: "https://github.com/alexisvannson/clinical-nlp",
+    liveUrl: "https://alexisvannson.hashnode.dev/applying-graph-neural-networks-for-better-image-classification",
+    githubUrl: "https://github.com/alexisvannson/GraphNet_Classifier",
+  },
+  {
+    slug: "computer-vision",
+    title: "Computer Vision Models",
+    description:
+      "Modular implementation of image classification architectures: MLP, CNN, ResNet, SeNet, and Vision Transformer (ViT).",
+    longDescription:
+      "A comprehensive image classification project with modular implementations of multiple deep learning architectures — MLP, CNN, ResNet, SeNet, and Vision Transformer (ViT). Each model is implemented from scratch to compare performance and understand architectural trade-offs.",
+    tech: ["Python", "PyTorch", "Jupyter Notebook", "CNN", "ResNet", "ViT"],
+    status: "completed",
+    featured: false,
+    githubUrl: "https://github.com/alexisvannson/computer-vision",
+  },
+  {
+    slug: "vessel-segmentation",
+    title: "Vessel Segmentation",
+    description:
+      "Retina blood vessel segmentation using U-Net architectures for medical image analysis.",
+    longDescription:
+      "A medical imaging project that applies U-Net architectures to segment blood vessels in retinal images. The model identifies vessel structures to assist in diagnosing retinal diseases, demonstrating the application of deep learning in healthcare.",
+    tech: ["Python", "PyTorch", "U-Net", "Medical Imaging", "OpenCV"],
+    status: "completed",
+    featured: false,
+    githubUrl: "https://github.com/alexisvannson/VesselSegmentation",
   },
 ];
 
@@ -128,28 +162,18 @@ export interface SkillCategory {
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: "Machine Learning",
+    name: "Data Science & ML",
     icon: Brain,
-    skills: ["PyTorch", "TensorFlow", "scikit-learn", "Transformers", "XGBoost", "MLflow"],
-  },
-  {
-    name: "Biomedical",
-    icon: HeartPulse,
-    skills: ["LINCS L1000", "RDKit", "BioPython", "Gene Expression", "Drug Discovery", "SMILES"],
+    skills: ["PyTorch", "TensorFlow", "Keras", "Scikit-learn", "NLTK", "NumPy", "Pandas", "PySpark", "OpenCV"],
   },
   {
     name: "Programming",
     icon: Code2,
-    skills: ["Python", "TypeScript", "R", "SQL", "Bash", "C++"],
+    skills: ["Python", "TypeScript", "C", "MySQL", "JavaScript", "Svelte", "HTML/CSS"],
   },
   {
-    name: "Web Development",
-    icon: Globe,
-    skills: ["React", "Next.js", "Tailwind CSS", "Node.js", "FastAPI", "REST APIs"],
-  },
-  {
-    name: "Tools & Infra",
+    name: "Tools & Frameworks",
     icon: Wrench,
-    skills: ["Docker", "Git", "AWS", "Linux", "Jupyter", "PostgreSQL"],
+    skills: ["Git", "Postman", "Docker", "Shell scripting", "UNIX/Linux", "Node.js", "Deno", "Supabase", "LangChain"],
   },
 ];

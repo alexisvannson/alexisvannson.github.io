@@ -27,7 +27,7 @@ export const ProjectsSection = () => {
         </h2>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 gap-6">
         {projects.map((project, i) => (
           <motion.div
             key={project.slug}
@@ -78,14 +78,25 @@ export const ProjectsSection = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {project.liveUrl && (
+                  {project.liveUrl && project.liveUrl.startsWith("http") ? (
+                    <Button variant="soft" size="sm" asChild>
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5 mr-1" />
+                        Blog Post
+                      </a>
+                    </Button>
+                  ) : project.liveUrl ? (
                     <Button variant="soft" size="sm" asChild>
                       <Link to={project.liveUrl}>
                         <ExternalLink className="h-3.5 w-3.5 mr-1" />
                         Live Demo
                       </Link>
                     </Button>
-                  )}
+                  ) : null}
                   {project.githubUrl && (
                     <Button variant="ghost" size="sm" asChild>
                       <a

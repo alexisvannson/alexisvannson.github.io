@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { projects } from "@/data/portfolioData";
 
 const statusLabels: Record<string, string> = {
@@ -92,16 +90,6 @@ const ProjectCaseStudy = () => {
             </Button>
           )}
         </div>
-
-        {/* Screenshot placeholder */}
-        <Card className="glass-card mb-10">
-          <CardContent className="p-6">
-            <Skeleton className="w-full h-48 rounded-lg" />
-            <p className="text-xs text-muted-foreground text-center mt-3">
-              Screenshot placeholder
-            </p>
-          </CardContent>
-        </Card>
 
         {/* Long description */}
         <div className="mb-10">

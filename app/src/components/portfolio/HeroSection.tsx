@@ -84,7 +84,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-medium tracking-wide uppercase bg-primary-light text-primary rounded-full">
-            AI/ML &amp; Biomedical Engineering
+            AI/ML &amp; Biomedicine
           </span>
         </motion.div>
 
