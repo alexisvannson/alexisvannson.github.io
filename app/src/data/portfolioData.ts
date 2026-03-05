@@ -19,7 +19,7 @@ export const personalInfo = {
 };
 
 export const aboutData = {
-  bio: "I study AI, Data and Management Sciences at CentraleSupélec and Essec Business School — a dual engineering and business program in Paris. I've interned as a software engineer building LLM-powered products, as a data scientist working on large-scale prediction models, and as a research assistant benchmarking deep learning architectures for computer vision. During my free time, I like to work on side projects like working on medical imaging (currently looking into segmentation models).",
+  bio: "I study AI, Data and Management Sciences at CentraleSupélec and Essec Business School — a dual engineering and business program in Paris. I've interned as a software engineer working on LLM-powered products, as a data scientist focusing on identifying the weaknesses of a large-scale prediction model, and as a research assistant benchmarking deep learning architectures for computer vision. During my free time, I like to explore with side projects. (I am currently looking into segmentation models in the context of medical imaging).",
   highlights: [
     {
       label: "Education",
